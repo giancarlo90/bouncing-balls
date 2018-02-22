@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Class BallDemo - a short demonstration showing animation with the 
@@ -23,30 +25,34 @@ public class BallDemo
     /**
      * Simulate two bouncing balls
      */
-    public void bounce()
+    public void bounce(int n)
     {
         int ground = 400;   // position of the ground line
+        Random random = new Random();
+        ArrayList<BouncingBall> bolas = new ArrayList<>();
+        int i=0;
 
         myCanvas.setVisible(true);
 
         // draw the ground
         myCanvas.drawLine(50, ground, 550, ground);
 
-        // crate and show the balls
-        BouncingBall ball = new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas);
-        ball.draw();
-        BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED, ground, myCanvas);
-        ball2.draw();
-
         // make them bounce
         boolean finished =  false;
+
+        for(i=0;i < n; i++){
+            // crate and show the balls
+            bolas.add(new BouncingBall(random.nextInt(150), random.nextInt(150), 16, Color.BLUE, ground, myCanvas));
+            bolas.get(i).draw();
+        }
         while(!finished) {
-            myCanvas.wait(50);           // small delay
-            ball.move();
-            ball2.move();
-            // stop once ball has travelled a certain distance on x axis
-            if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
-                finished = true;
+            for(i=0;i < bolas.size(); i++){
+                myCanvas.wait(50);           // small delay
+                bolas.get(i).move();
+                // stop once ball has travelled a certain distance on x axis
+                if(bolas.get(i).getXPosition() >= 550) {
+                    finished = true;
+                }
             }
         }
     }
