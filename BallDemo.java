@@ -29,7 +29,7 @@ public class BallDemo
     {
         int ground = 400;   // position of the ground line
         Random random = new Random();
-        ArrayList<BouncingBall> bolas = new ArrayList<>();
+        ArrayList<BouncingBall> bolas = new ArrayList<>(); //ArrayList donde meteremos el numero total de bolas que creemos
         int i=0;
 
         myCanvas.setVisible(true);
@@ -39,12 +39,14 @@ public class BallDemo
 
         // make them bounce
         boolean finished =  false;
-
+        //Bucle donde crearemos el numero de bolas pasado por parametro, las almacenaremos en la ArrayList y las crearemos
         for(i=0;i < n; i++){
-            // crate and show the balls
-            bolas.add(new BouncingBall(random.nextInt(150), random.nextInt(150), 16, Color.getHSBColor(random.nextFloat(),random.nextFloat(),random.nextFloat()), ground, myCanvas));
+            // crearemos y mostraremos las bolas con caracteristicas de posicion, tamaño y color aleatorio
+            bolas.add(new BouncingBall(random.nextInt(150), random.nextInt(150), random.nextInt(50), 
+            Color.getHSBColor(random.nextFloat(),random.nextFloat(),random.nextFloat()), ground, myCanvas));
             bolas.get(i).draw();
         }
+        //Bucle con el que moveremos todas las bolas y pararemos la ejecucion cuando una llegue al final de la pantalla
         while(!finished) {
             for(i=0;i < bolas.size(); i++){
                 myCanvas.wait(25);           // small delay
